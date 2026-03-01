@@ -1,26 +1,39 @@
 ---
 title: "CI automation"
-description: "Secure CI patterns for drift checks and scheduled TMS pull/push synchronization."
+description: "Secure CI patterns for docs i18n dry-runs, broken-link checks, and scheduled sync workflows."
 ---
 
 ## CI secret injection standard
 
-For remote adapters, keep secrets in your CI secret manager and inject them only in jobs that call `hyperlocalise sync`.
+For remote adapters, keep secrets in your CI secret manager and inject them only in jobs that call `hyperlocalise sync` or non-dry-run `hyperlocalise run`.
 
 - Commit only `*Env` variable names in `i18n.jsonc`.
 - Inject token values at runtime through job-level environment variables.
 - Use separate credentials for read-only checks vs write-enabled sync jobs.
 - Avoid printing environment variables in pipeline steps.
 
-## Suggested checks
+## Docs i18n baseline checks
 
-### 1. Config + planning smoke test
+Run these checks for docs changes that touch `docs/`:
+
+### 1. Docs i18n dry-run
 
 ```bash
-hyperlocalise run --config i18n.jsonc --dry-run
+go run . run --config docs/i18n.docs.jsonc --dry-run
 ```
 
-### 2. Status snapshot
+### 2. Mintlify broken-link validation
+
+```bash
+cd docs
+mint broken-links
+```
+
+The repository CI workflow runs this exact sequence in the `docs-i18n` job.
+
+## Additional suggested checks
+
+### 1. Status snapshot
 
 ```bash
 hyperlocalise status --config i18n.jsonc --output csv
@@ -28,7 +41,7 @@ hyperlocalise status --config i18n.jsonc --output csv
 
 Store CSV as a build artifact for trend tracking.
 
-### 3. Sync conflict gate
+### 2. Sync conflict gate
 
 `sync pull` and `sync push` default to `--dry-run=true`, which is a safe CI baseline.
 
@@ -38,74 +51,3 @@ hyperlocalise sync push --config i18n.jsonc --output json --fail-on-conflict --d
 ```
 
 Use `--dry-run=false` only in jobs that are explicitly authorized to write local files or remote systems.
-
-## Scheduled sync job examples
-
-Use these GitHub Actions examples as a baseline. Adapt secret names and approval rules to your CI platform.
-
-### Scheduled pull sync (read-only, safe default)
-
-```yaml
-name: tms-pull-sync
-
-on:
-  schedule:
-    - cron: "0 */6 * * *"
-  workflow_dispatch:
-
-jobs:
-  pull-sync:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    env:
-      SMARTLING_USER_SECRET: ${{ secrets.SMARTLING_USER_SECRET }}
-      LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: go.mod
-      - run: go run . sync pull --config i18n.jsonc --output json --fail-on-conflict --dry-run=true
-```
-
-To apply remote changes to local files in CI, switch to:
-
-```bash
-go run . sync pull --config i18n.jsonc --output json --fail-on-conflict --dry-run=false
-```
-
-### Scheduled push sync (write-enabled, active)
-
-```yaml
-name: tms-push-sync
-
-on:
-  schedule:
-    - cron: "30 2 * * *"
-  workflow_dispatch:
-
-jobs:
-  push-sync:
-    runs-on: ubuntu-latest
-    environment: production
-    permissions:
-      contents: read
-    env:
-      SMARTLING_USER_SECRET: ${{ secrets.SMARTLING_USER_SECRET }}
-      LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: go.mod
-      - run: go run . sync push --config i18n.jsonc --output json --fail-on-conflict --dry-run=false
-```
-
-For a non-mutating validation pass, use:
-
-```bash
-go run . sync push --config i18n.jsonc --output json --fail-on-conflict --dry-run=true
-```
-
-For write-enabled jobs, prefer protected environments, approval gates, and least-privilege service credentials.

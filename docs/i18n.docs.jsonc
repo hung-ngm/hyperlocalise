@@ -1,0 +1,225 @@
+// Docs i18n playground config for Mintlify language content.
+{
+  "locales": {
+    "source": "en",
+    "targets": [
+      "es"
+    ]
+  },
+  "buckets": {
+    "docs_pages": {
+      "files": [
+        {
+          "from": "index.mdx",
+          "to": "es/index.mdx"
+        },
+        {
+          "from": "getting-started/install.mdx",
+          "to": "es/getting-started/install.mdx"
+        },
+        {
+          "from": "getting-started/quickstart.mdx",
+          "to": "es/getting-started/quickstart.mdx"
+        },
+        {
+          "from": "getting-started/first-project.mdx",
+          "to": "es/getting-started/first-project.mdx"
+        },
+        {
+          "from": "configuration/i18n-config.mdx",
+          "to": "es/configuration/i18n-config.mdx"
+        },
+        {
+          "from": "configuration/path-templates.mdx",
+          "to": "es/configuration/path-templates.mdx"
+        },
+        {
+          "from": "configuration/provider-credentials.mdx",
+          "to": "es/configuration/provider-credentials.mdx"
+        },
+        {
+          "from": "commands/overview.mdx",
+          "to": "es/commands/overview.mdx"
+        },
+        {
+          "from": "commands/init.mdx",
+          "to": "es/commands/init.mdx"
+        },
+        {
+          "from": "commands/run.mdx",
+          "to": "es/commands/run.mdx"
+        },
+        {
+          "from": "commands/eval.mdx",
+          "to": "es/commands/eval.mdx"
+        },
+        {
+          "from": "commands/status.mdx",
+          "to": "es/commands/status.mdx"
+        },
+        {
+          "from": "commands/sync-pull.mdx",
+          "to": "es/commands/sync-pull.mdx"
+        },
+        {
+          "from": "commands/sync-push.mdx",
+          "to": "es/commands/sync-push.mdx"
+        },
+        {
+          "from": "commands/version-and-completion.mdx",
+          "to": "es/commands/version-and-completion.mdx"
+        },
+        {
+          "from": "workflows/local-generation.mdx",
+          "to": "es/workflows/local-generation.mdx"
+        },
+        {
+          "from": "workflows/eval-set-curation.mdx",
+          "to": "es/workflows/eval-set-curation.mdx"
+        },
+        {
+          "from": "workflows/tms-curation-loop.mdx",
+          "to": "es/workflows/tms-curation-loop.mdx"
+        },
+        {
+          "from": "workflows/ci-automation.mdx",
+          "to": "es/workflows/ci-automation.mdx"
+        },
+        {
+          "from": "providers/overview.mdx",
+          "to": "es/providers/overview.mdx"
+        },
+        {
+          "from": "providers/openai.mdx",
+          "to": "es/providers/openai.mdx"
+        },
+        {
+          "from": "providers/azure-openai.mdx",
+          "to": "es/providers/azure-openai.mdx"
+        },
+        {
+          "from": "providers/gemini.mdx",
+          "to": "es/providers/gemini.mdx"
+        },
+        {
+          "from": "providers/anthropic.mdx",
+          "to": "es/providers/anthropic.mdx"
+        },
+        {
+          "from": "providers/bedrock.mdx",
+          "to": "es/providers/bedrock.mdx"
+        },
+        {
+          "from": "providers/lmstudio.mdx",
+          "to": "es/providers/lmstudio.mdx"
+        },
+        {
+          "from": "providers/groq.mdx",
+          "to": "es/providers/groq.mdx"
+        },
+        {
+          "from": "providers/ollama.mdx",
+          "to": "es/providers/ollama.mdx"
+        },
+        {
+          "from": "storage/overview.mdx",
+          "to": "es/storage/overview.mdx"
+        },
+        {
+          "from": "storage/crowdin.mdx",
+          "to": "es/storage/crowdin.mdx"
+        },
+        {
+          "from": "storage/lilt.mdx",
+          "to": "es/storage/lilt.mdx"
+        },
+        {
+          "from": "storage/lokalise.mdx",
+          "to": "es/storage/lokalise.mdx"
+        },
+        {
+          "from": "storage/phrase.mdx",
+          "to": "es/storage/phrase.mdx"
+        },
+        {
+          "from": "storage/poeditor.mdx",
+          "to": "es/storage/poeditor.mdx"
+        },
+        {
+          "from": "storage/smartling.mdx",
+          "to": "es/storage/smartling.mdx"
+        },
+        {
+          "from": "troubleshooting/common-errors.mdx",
+          "to": "es/troubleshooting/common-errors.mdx"
+        },
+        {
+          "from": "troubleshooting/conflicts.mdx",
+          "to": "es/troubleshooting/conflicts.mdx"
+        },
+        {
+          "from": "troubleshooting/performance.mdx",
+          "to": "es/troubleshooting/performance.mdx"
+        },
+        {
+          "from": "reference/glossary.mdx",
+          "to": "es/reference/glossary.mdx"
+        },
+        {
+          "from": "reference/config-schema.mdx",
+          "to": "es/reference/config-schema.mdx"
+        },
+        {
+          "from": "reference/output-formats.mdx",
+          "to": "es/reference/output-formats.mdx"
+        },
+        {
+          "from": "reference/lockfile-contract.mdx",
+          "to": "es/reference/lockfile-contract.mdx"
+        },
+        {
+          "from": "reference/creator.mdx",
+          "to": "es/reference/creator.mdx"
+        },
+        {
+          "from": "contributing/docs-contributions.mdx",
+          "to": "es/contributing/docs-contributions.mdx"
+        },
+        {
+          "from": "contributing/development.mdx",
+          "to": "es/contributing/development.mdx"
+        },
+        {
+          "from": "contributing/release-maintenance.mdx",
+          "to": "es/contributing/release-maintenance.mdx"
+        }
+      ]
+    }
+  },
+  "groups": {
+    "docs_es": {
+      "targets": [
+        "es"
+      ],
+      "buckets": [
+        "docs_pages"
+      ]
+    }
+  },
+  "llm": {
+    "profiles": {
+      "default": {
+        "provider": "openai",
+        "model": "gpt-5.2",
+        "prompt": "Translate the Markdown/MDX content from {{source}} to {{target}} while preserving frontmatter keys, code fences, inline code, links, and MDX component syntax.\n\n{{input}}"
+      }
+    },
+    "rules": [
+      {
+        "priority": 100,
+        "group": "docs_es",
+        "profile": "default"
+      }
+    ]
+  }
+}

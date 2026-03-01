@@ -29,3 +29,32 @@ jobs:
 
       - name: make precommit
         run: make precommit
+
+  docs-i18n:
+    name: Docs i18n validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Bootstrap Go toolchain
+        uses: ./.github/actions/go-bootstrap
+        with:
+          go-version-file: go.mod
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install Mintlify CLI
+        run: npm i -g mint
+
+      - name: hyperlocalise docs dry-run
+        working-directory: docs
+        run: go run .. run --config i18n.docs.jsonc --dry-run
+
+      - name: mint broken-links
+        working-directory: docs
+        run: mint broken-links

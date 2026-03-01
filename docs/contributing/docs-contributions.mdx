@@ -1,6 +1,6 @@
 ---
 title: "Docs contributions"
-description: "How to contribute improvements to this documentation site."
+description: "How to contribute improvements and validate docs i18n in this Mintlify site."
 ---
 
 ## Edit on GitHub
@@ -13,9 +13,33 @@ description: "How to contribute improvements to this documentation site."
 
 1. clone repository,
 2. install Mintlify CLI (`npm i -g mint`),
-3. run `mint dev` in `docs/`,
+3. run `mint dev` in `docs/` and verify the language switcher for English and Español,
 4. validate links with `mint broken-links`,
 5. open pull request.
+
+## Docs i18n playground workflow
+
+Use the docs i18n config at `docs/i18n.docs.jsonc`.
+
+### Prerequisites
+
+- install hyperlocalise from the repo root (`go run . --help`),
+- set provider credentials before non-dry-run generation (for example `OPENAI_API_KEY` when using the default OpenAI profile),
+- run all commands from `docs/`.
+
+### Reproducible validation sequence
+
+```bash
+# 1) plan translation work without writing files
+go run .. run --config i18n.docs.jsonc --dry-run
+
+# 2) generate target locale docs
+go run .. run --config i18n.docs.jsonc
+
+# 3) verify links are valid after generation
+mint broken-links
+```
+
 
 ## Writing standards
 

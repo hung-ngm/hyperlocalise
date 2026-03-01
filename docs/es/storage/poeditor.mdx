@@ -1,0 +1,35 @@
+---
+title: "POEditor adapter"
+description: "Configure POEditor for sync pull and sync push."
+---
+
+## Required config
+
+```jsonc
+{
+  "storage": {
+    "adapter": "poeditor",
+    "config": {
+      "projectID": "123456",
+      "apiTokenEnv": "POEDITOR_API_TOKEN"
+    }
+  }
+}
+```
+
+## Token resolution
+
+1. env var named by `storage.config.apiTokenEnv`
+2. fallback: `POEDITOR_API_TOKEN`
+
+## Optional config fields
+
+- `sourceLanguage`
+- `targetLanguages`
+- `timeoutSeconds`
+
+## Common issues
+
+- invalid token: verify environment variable is exported in current shell
+- wrong project id: verify numeric project ID from POEditor
+- missing locales: ensure `targetLanguages` aligns with config targets

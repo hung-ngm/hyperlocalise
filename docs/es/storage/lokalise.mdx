@@ -1,0 +1,34 @@
+---
+title: "Lokalise adapter"
+description: "Configure Lokalise API v2 for pull/push synchronization."
+---
+
+## Required config
+
+```jsonc
+{
+  "storage": {
+    "adapter": "lokalise",
+    "config": {
+      "projectID": "your-project-id",
+      "apiTokenEnv": "LOKALISE_API_TOKEN"
+    }
+  }
+}
+```
+
+## Optional config fields
+
+- `targetLanguages`
+- `timeoutSeconds`
+
+## Token resolution
+
+- default env var: `LOKALISE_API_TOKEN`
+- override with `apiTokenEnv`
+
+## Common issues
+
+- unauthorized errors: token missing or insufficient scope
+- locale mismatch: align Lokalise language codes with target locales
+- timeout errors: increase `timeoutSeconds` for large projects

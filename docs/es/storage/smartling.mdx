@@ -1,0 +1,38 @@
+---
+title: "Smartling adapter"
+description: "Configure Smartling for remote translation pull/push synchronization."
+---
+
+## Required config
+
+```jsonc
+{
+  "storage": {
+    "adapter": "smartling",
+    "config": {
+      "projectID": "your-project-id",
+      "userIdentifier": "your-smartling-user-identifier",
+      "userSecretEnv": "SMARTLING_USER_SECRET"
+    }
+  }
+}
+```
+
+## Required secret
+
+```bash
+export SMARTLING_USER_SECRET="your-smartling-user-secret"
+```
+
+`userSecret` inline in config is not supported. Use environment variables only.
+
+## Optional config fields
+
+- `targetLanguages`
+- `timeoutSeconds` (defaults to `30`)
+
+## Common issues
+
+- missing secret: export `SMARTLING_USER_SECRET` in the same shell session
+- missing user identifier: set `storage.config.userIdentifier`
+- locale mismatch: align `targetLanguages` with your project locales

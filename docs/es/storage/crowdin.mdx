@@ -1,0 +1,30 @@
+---
+title: "Crowdin adapter"
+description: "Configure Crowdin for remote translation synchronization."
+---
+
+## Required config
+
+```jsonc
+{
+  "storage": {
+    "adapter": "crowdin",
+    "config": {
+      "projectID": "123456",
+      "apiTokenEnv": "CROWDIN_API_TOKEN"
+    }
+  }
+}
+```
+
+## Optional config fields
+
+- `sourceLanguage`
+- `targetLanguages`
+- `timeoutSeconds`
+
+## Common issues
+
+- token not found: export `CROWDIN_API_TOKEN`
+- project lookup failure: check project ID and account permissions
+- partial updates: review conflict report with `--output json`

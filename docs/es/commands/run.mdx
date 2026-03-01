@@ -1,0 +1,64 @@
+---
+title: "run"
+description: "Plan and execute local translation generation from configured source files."
+---
+
+## Usage
+
+```bash
+hyperlocalise run [--config <path>] [--dry-run] [--workers <count>]
+```
+
+## Behavior
+
+1. load and validate config,
+2. plan tasks from groups and buckets,
+3. skip tasks already in `.hyperlocalise.lock.json`,
+4. execute remaining tasks,
+5. persist successful tasks to lock state.
+
+For lockfile fields, lifecycle, and reset guidance, see [Lockfile contract](/reference/lockfile-contract).
+
+## Supported local file formats
+
+`run` can read source and target files with these extensions:
+
+- `.json`
+- `.xlf` and `.xliff`
+- `.po`
+- `.md` and `.mdx`
+
+For Markdown and MDX (`.md`, `.mdx`), `run` translates extracted prose and preserves non-translatable structure:
+
+- frontmatter blocks (`---`)
+- fenced code blocks (```` ``` ```` and `~~~`)
+- inline code spans
+- Markdown anchors such as link destinations
+- MDX `import` and `export` lines
+- JSX/MDX component tags and attribute values
+
+## Flags
+
+- `--config`: path to config file (default `i18n.jsonc` in current directory)
+- `--dry-run`: print plan only, do not translate or write files
+- `--workers`: number of parallel translation workers (defaults to CPU cores)
+
+## Output fields
+
+- `planned_total`
+- `skipped_by_lock`
+- `executable_total`
+- `succeeded`
+- `failed`
+- `persisted_to_lock`
+
+## Failure output
+
+On task failure, output includes `failure target=<...> key=<...> reason=<...>`.
+
+
+## Worker tuning guidance
+
+Lower `--workers` when you hit provider rate limits or run in constrained CI environments. Start with `1` to stabilize retries and then increase gradually.
+
+Raise `--workers` when your provider quota and machine resources allow more throughput. Increase in small steps and watch API error rates plus local CPU and memory usage.
