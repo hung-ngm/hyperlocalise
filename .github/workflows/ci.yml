@@ -49,6 +49,7 @@ jobs:
           node-version: 24
 
       - name: Install Mintlify CLI
+        continue-on-error: true
         run: npm i -g mint
 
       - name: hyperlocalise docs dry-run
